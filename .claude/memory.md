@@ -23,6 +23,17 @@ Landlord thấy tất cả (không filter).
 ### 5. `10.0.2.2` cho Android emulator
 Emulator Android không dùng `localhost` — phải dùng `10.0.2.2` để trỏ tới host machine.
 
+### 6. Serialize `_id` → `id` toàn cục (plugin Mongoose)
+Frontend (`@/types`) dùng field `id`, nhưng Mongoose mặc định serialize `_id`.
+Plugin toàn cục tại `backend/src/config/mongoose.ts` set `toJSON` cho mọi schema: thêm `id` (string), bỏ `_id`, `__v`, `password`.
+Phải import `./config/mongoose` **đầu tiên** trong `app.ts` (trước khi model compile) thì plugin mới áp dụng.
+Chỉ route `auth` tự build object `{ id, ... }` nên không phụ thuộc plugin.
+
+### 7. Dev chạy bằng `concurrently`, KHÔNG bằng Turbo
+Turbo `run dev` làm `vite` thoát ngay (exit 1) trên Windows trong môi trường này.
+Vì vậy script `dev` ở root dùng `concurrently` để chạy backend + web song song.
+Turbo vẫn dùng cho `build`/`lint`/`clean`.
+
 ---
 
 ## Gotchas đã gặp
@@ -41,16 +52,23 @@ Fix: set `isLoading: true` trong `AuthState` init, GoRouter chỉ redirect khi `
 
 ---
 
-## Seed data gợi ý (cho dev/test)
+## Seed data (đã có script: `npm run seed`)
 
-```
-Landlord: landlord@roomflow.vn / password123
-Tenant:   tenant1@roomflow.vn / password123
+Script `backend/src/seed.ts` **xoá sạch toàn bộ collection** rồi nạp lại bộ demo. Chạy: `npm run seed`.
 
-Property: "Khu trọ Bình Thạnh" — electricityPricePerKwh: 3500, waterPricePerM3: 15000
-Rooms: P101, P102, P103 (baseRent: 3.500.000 ₫)
-Contract: tenant1 ở P101, từ 01/01/2025
+Tài khoản (mật khẩu chung `password123`):
 ```
+Landlord: landlord@roomflow.vn
+Tenant:   tenant1@roomflow.vn (An), tenant2 (Bình), tenant3 (Cường), tenant4 (Dung)
+```
+
+Dữ liệu nạp sẵn:
+- 2 khu trọ: "Khu trọ Bình Thạnh" (điện 3500, nước 15000) và "Khu trọ Thủ Đức" (điện 4000, nước 18000)
+- 6 phòng (3 đang thuê qua hợp đồng active, 3 trống)
+- Chỉ số điện/nước + hóa đơn cho 4 tháng gần nhất; hóa đơn tháng hiện tại có đủ 3 trạng thái paid/pending/overdue
+- Thanh toán cho các hóa đơn đã trả; 3 yêu cầu sửa chữa (pending/in_progress/resolved)
+
+Lưu ý: seed dùng `.create()` để kích hoạt pre-save hook (hash password, tính tiền điện/nước) — KHÔNG dùng `insertMany`.
 
 ---
 
@@ -71,11 +89,16 @@ Contract: tenant1 ở P101, từ 01/01/2025
 
 ---
 
+## Đã hoàn thành gần đây
+
+- [x] Trang quản lý hợp đồng trên web — `frontend_web/src/pages/ContractsPage.tsx` (route `/contracts`, nav trong Sidebar): danh sách, tạo hợp đồng (chọn phòng trống + khách thuê → phòng tự "occupied"), kết thúc hợp đồng (→ phòng "vacant")
+- [x] Serialize `_id`→`id` toàn cục (xem mục Quyết định #6)
+- [x] Seed script dữ liệu demo (`npm run seed`)
+
 ## Chưa implement (Phase 3)
 
 - [ ] Push notifications (Socket.io web + FCM mobile)
 - [ ] Export PDF hóa đơn
 - [ ] Multi-landlord (currently 1 landlord/instance)
 - [ ] SMS/Zalo webhook nhắc nợ
-- [ ] Trang quản lý hợp đồng trên web (contracts CRUD page)
 - [ ] Image upload trong NewMaintenanceScreen (roomId hiện để trống `''`)

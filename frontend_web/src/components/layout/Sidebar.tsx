@@ -19,11 +19,22 @@ const navItems = [
 
 export default function Sidebar() {
   return (
-    <aside className="w-60 bg-white border-r border-gray-200 flex flex-col">
-      <div className="h-16 flex items-center px-6 border-b border-gray-200">
-        <span className="text-xl font-bold text-primary">RoomFlow</span>
+    <aside className="w-64 bg-slate-900 flex flex-col">
+      {/* Logo */}
+      <div className="h-16 flex items-center px-5 border-b border-slate-800/70">
+        <div className="flex items-center gap-2.5">
+          <div
+            className="w-8 h-8 rounded-xl bg-blue-500 flex items-center justify-center shrink-0"
+            style={{ boxShadow: '0 0 16px rgba(59,130,246,0.55)' }}
+          >
+            <span className="text-white text-sm font-black leading-none">R</span>
+          </div>
+          <span className="text-white text-[17px] font-bold tracking-tight">RoomFlow</span>
+        </div>
       </div>
-      <nav className="flex-1 p-3 space-y-1">
+
+      {/* Nav */}
+      <nav className="flex-1 p-3 space-y-0.5 overflow-y-auto">
         {navItems.map(({ to, icon: Icon, label, end }) => (
           <NavLink
             key={to}
@@ -31,18 +42,28 @@ export default function Sidebar() {
             end={end}
             className={({ isActive }) =>
               cn(
-                'flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors',
+                'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150',
                 isActive
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-gray-600 hover:bg-gray-100'
+                  ? 'bg-blue-500 text-white'
+                  : 'text-slate-400 hover:bg-slate-800 hover:text-slate-100'
               )
             }
+            style={({ isActive }) =>
+              isActive ? { boxShadow: '0 4px 14px rgba(59,130,246,0.40)' } : undefined
+            }
           >
-            <Icon size={18} />
+            <Icon size={17} />
             {label}
           </NavLink>
         ))}
       </nav>
+
+      {/* Footer */}
+      <div className="px-4 py-3 border-t border-slate-800/70">
+        <p className="text-[11px] text-slate-600 text-center tracking-wide">
+          RoomFlow · 2026
+        </p>
+      </div>
     </aside>
   );
 }

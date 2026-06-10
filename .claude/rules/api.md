@@ -4,10 +4,16 @@
 
 - Mọi protected route PHẢI có `authenticate` middleware
 - Route chỉ dành cho bà chủ PHẢI có `requireLandlord` middleware
-- Route handler PHẢI trả về `{ success: true, data }` khi thành công
-- Route handler PHẢI trả về `{ success: false, message, error? }` khi lỗi
+- Thành công: trả thẳng JSON tài nguyên (vd `res.json(invoice)` hoặc mảng), status 201 cho create
+- Lỗi: trả `res.status(code).json({ message, error? })` với code phù hợp (400/401/403/404/409/500)
 - Dùng `express-validator` cho input validation, không tự validate thủ công
-- Password KHÔNG BAO GIỜ được trả về trong response (dùng `.select('-password')`)
+- Password KHÔNG BAO GIỜ được trả về (plugin toàn cục đã strip `password`; thêm `.select('-password')` cho chắc)
+
+## Serialization
+
+- Plugin toàn cục tại `config/mongoose.ts` set `toJSON` cho MỌI schema: thêm `id` (string), bỏ `_id`, `__v`, `password`
+- Vì vậy response luôn có `id` — KHÔNG dựa vào `_id` ở client
+- Plugin PHẢI được import (`import './config/mongoose'`) trước khi bất kỳ model nào compile → để dòng đầu `app.ts`
 
 ## Model conventions
 
@@ -15,6 +21,7 @@
 - Unique constraint dùng compound index, không chỉ field-level unique
 - Giá tiền lưu dưới dạng số nguyên **VND** (không float, không USD)
 - Reference dùng `mongoose.Types.ObjectId` với `ref: 'ModelName'`
+- Seed/migration dùng `.create()` (không `insertMany`) để chạy pre-save hook (hash password, tính tiền)
 
 ## Tính tiền
 
@@ -38,10 +45,11 @@ try {
 
 ```
 src/
-├── config/      database.ts, jwt.ts
+├── config/      database.ts, jwt.ts, mongoose.ts (plugin toàn cục)
 ├── middleware/  auth.middleware.ts
 ├── models/      *.model.ts
 ├── routes/      *.routes.ts
-├── app.ts       register routes
+├── seed.ts      dữ liệu demo (npm run seed)
+├── app.ts       import './config/mongoose' đầu tiên, rồi register routes
 └── index.ts     HTTP server + Socket.io
 ```

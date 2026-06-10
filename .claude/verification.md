@@ -14,19 +14,26 @@ cp .env.example backend/.env
 # 2. Cài dependencies (backend + frontend_web qua npm workspaces)
 npm install
 
-# 3. Flutter deps
+# 3. Nạp dữ liệu demo (cần MongoDB đang chạy)
+npm run seed
+
+# 4. Flutter deps
 cd frontend_app && flutter pub get && cd ..
 ```
+
+Tài khoản demo sau seed (mật khẩu `password123`): bà chủ `landlord@roomflow.vn`; sinh viên `tenant1..4@roomflow.vn`.
 
 ---
 
 ## Chạy dev
 
 ```bash
-npm run dev
+npm run dev        # backend + web song song (concurrently)
 # → API: http://localhost:3001
 # → Web: http://localhost:5173
 ```
+
+> Chỉ chạy **một** `npm run dev` tại một thời điểm. Nếu gặp `EADDRINUSE` (cổng 3001/5173 đang bận), tắt tiến trình Node cũ (`taskkill /F /IM node.exe` trên Windows) rồi chạy lại.
 
 ---
 
@@ -52,7 +59,7 @@ POST /api/auth/refresh
 ### Core data flow
 ```
 POST /api/properties          (cần Bearer token landlord)
-  ✓ tạo property, trả về _id
+  ✓ tạo property, response có field `id` (string, không phải `_id`)
 
 POST /api/rooms               (cần propertyId từ bước trên)
   ✓ tạo room với status: "vacant"
@@ -96,6 +103,12 @@ GET /api/reports/dashboard
 - [ ] 4 stat cards hiện số thực từ API
 - [ ] BarChart hiện doanh thu 12 tháng
 - [ ] Property occupancy progress bars
+
+### Contracts (`/contracts`)
+- [ ] Tạo hợp đồng: chọn phòng trống + khách thuê → lưu thành công
+- [ ] Phòng vừa gắn chuyển sang "đang thuê" (occupied), biến mất khỏi dropdown phòng trống
+- [ ] Nút "Kết thúc" → hợp đồng thành "ended", phòng quay lại "trống"
+- [ ] Tạo hợp đồng cho phòng đã có hợp đồng active → báo lỗi (không trùng)
 
 ### Payments (`/payments`)
 - [ ] Filter tháng/năm hoạt động

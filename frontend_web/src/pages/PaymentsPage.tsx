@@ -3,13 +3,12 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { CheckCircle, Clock, AlertTriangle } from 'lucide-react';
 import api from '../lib/api';
 import { formatCurrency, getMonthLabel } from '../lib/utils';
-import { cn } from '../lib/utils';
 import type { Invoice } from '@/types';
 
 const STATUS_CONFIG = {
-  paid: { label: 'Đã trả', icon: CheckCircle, color: 'text-green-600', bg: 'bg-green-50' },
-  pending: { label: 'Chưa trả', icon: Clock, color: 'text-yellow-600', bg: 'bg-yellow-50' },
-  overdue: { label: 'Quá hạn', icon: AlertTriangle, color: 'text-red-600', bg: 'bg-red-50' },
+  paid:    { label: 'Đã trả',   icon: CheckCircle,  badge: 'badge-success', border: '#10B981', bg: 'rgba(16,185,129,0.08)'  },
+  pending: { label: 'Chưa trả', icon: Clock,         badge: 'badge-warning', border: '#F59E0B', bg: 'rgba(245,158,11,0.08)'  },
+  overdue: { label: 'Quá hạn',  icon: AlertTriangle, badge: 'badge-error',   border: '#EF4444', bg: 'rgba(239,68,68,0.08)'   },
 };
 
 export default function PaymentsPage() {
@@ -28,74 +27,82 @@ export default function PaymentsPage() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ['invoices', month, year] }),
   });
 
+  const paid    = invoices.filter(i => i.status === 'paid');
   const pending = invoices.filter(i => i.status === 'pending');
-  const paid = invoices.filter(i => i.status === 'paid');
   const overdue = invoices.filter(i => i.status === 'overdue');
 
+  const summaryItems = [
+    { key: 'paid',    label: 'Đã thanh toán', count: paid.length,    total: paid.reduce((s, i) => s + i.totalAmount, 0)    },
+    { key: 'pending', label: 'Chưa thanh toán', count: pending.length, total: pending.reduce((s, i) => s + i.totalAmount, 0) },
+    { key: 'overdue', label: 'Quá hạn',        count: overdue.length, total: overdue.reduce((s, i) => s + i.totalAmount, 0) },
+  ] as const;
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-slideInUp">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">Thanh toán</h1>
-          <p className="text-sm text-gray-500">{getMonthLabel(month, year)}</p>
+          <h1 className="page-title">Thanh toán</h1>
+          <p className="text-sm text-gray-400 mt-0.5">{getMonthLabel(month, year)}</p>
         </div>
         <div className="flex items-center gap-2">
-          <select value={month} onChange={e => setMonth(Number(e.target.value))}
-            className="border border-gray-300 rounded-md px-3 py-2 text-sm">
+          <select value={month} onChange={e => setMonth(Number(e.target.value))} className="cin-select">
             {Array.from({ length: 12 }, (_, i) => (
               <option key={i + 1} value={i + 1}>Tháng {i + 1}</option>
             ))}
           </select>
-          <select value={year} onChange={e => setYear(Number(e.target.value))}
-            className="border border-gray-300 rounded-md px-3 py-2 text-sm">
+          <select value={year} onChange={e => setYear(Number(e.target.value))} className="cin-select">
             {[2024, 2025, 2026].map(y => <option key={y} value={y}>{y}</option>)}
           </select>
         </div>
       </div>
 
+      {/* Summary cards */}
       <div className="grid grid-cols-3 gap-4">
-        {[
-          { label: 'Đã thanh toán', count: paid.length, total: paid.reduce((s, i) => s + i.totalAmount, 0), color: 'border-green-200 bg-green-50', textColor: 'text-green-700' },
-          { label: 'Chưa thanh toán', count: pending.length, total: pending.reduce((s, i) => s + i.totalAmount, 0), color: 'border-yellow-200 bg-yellow-50', textColor: 'text-yellow-700' },
-          { label: 'Quá hạn', count: overdue.length, total: overdue.reduce((s, i) => s + i.totalAmount, 0), color: 'border-red-200 bg-red-50', textColor: 'text-red-700' },
-        ].map(s => (
-          <div key={s.label} className={cn('rounded-xl border p-4', s.color)}>
-            <p className={cn('text-sm font-medium', s.textColor)}>{s.label}</p>
-            <p className="text-2xl font-bold text-gray-900 mt-1">{s.count}</p>
-            <p className="text-sm text-gray-500">{formatCurrency(s.total)}</p>
-          </div>
-        ))}
+        {summaryItems.map(s => {
+          const cfg = STATUS_CONFIG[s.key];
+          return (
+            <div
+              key={s.key}
+              className="cin-card p-4 border-l-4"
+              style={{ borderLeftColor: cfg.border, background: cfg.bg }}
+            >
+              <p className="text-sm font-semibold text-gray-600">{s.label}</p>
+              <p className="text-3xl font-bold text-gray-900 mt-1">{s.count}</p>
+              <p className="text-sm text-gray-500 mt-0.5">{formatCurrency(s.total)}</p>
+            </div>
+          );
+        })}
       </div>
 
       {isLoading ? (
-        <div className="text-gray-400 text-center py-8">Đang tải...</div>
+        <div className="cin-card p-4 text-center text-gray-400">Đang tải...</div>
       ) : (
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div className="cin-card overflow-hidden">
           <table className="w-full text-sm">
-            <thead className="bg-gray-50 border-b border-gray-200">
-              <tr>
+            <thead>
+              <tr className="border-b border-gray-100 bg-gray-50/60">
                 {['Phòng', 'Khách thuê', 'Tiền thuê', 'Điện', 'Nước', 'Tổng cộng', 'Trạng thái', ''].map(h => (
-                  <th key={h} className="text-left px-4 py-3 text-xs font-medium text-gray-500 uppercase">{h}</th>
+                  <th key={h} className="cin-table-header">{h}</th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody>
               {invoices.map(inv => {
-                const cfg = STATUS_CONFIG[inv.status];
-                const Icon = cfg.icon;
-                const room = typeof inv.room === 'object' ? inv.room : null;
+                const cfg    = STATUS_CONFIG[inv.status];
+                const Icon   = cfg.icon;
+                const room   = typeof inv.room   === 'object' ? inv.room   : null;
                 const tenant = typeof inv.tenant === 'object' ? inv.tenant : null;
                 return (
-                  <tr key={inv.id} className="hover:bg-gray-50">
+                  <tr key={inv.id} className="cin-table-row">
                     <td className="px-4 py-3 font-medium">Phòng {room?.roomNumber ?? '—'}</td>
-                    <td className="px-4 py-3 text-gray-600">{tenant?.name ?? '—'}</td>
-                    <td className="px-4 py-3">{formatCurrency(inv.rentAmount)}</td>
-                    <td className="px-4 py-3">{formatCurrency(inv.electricityCost)}</td>
-                    <td className="px-4 py-3">{formatCurrency(inv.waterCost)}</td>
-                    <td className="px-4 py-3 font-semibold">{formatCurrency(inv.totalAmount)}</td>
+                    <td className="px-4 py-3 text-gray-500">{tenant?.name ?? '—'}</td>
+                    <td className="px-4 py-3 text-gray-600">{formatCurrency(inv.rentAmount)}</td>
+                    <td className="px-4 py-3 text-gray-600">{formatCurrency(inv.electricityCost)}</td>
+                    <td className="px-4 py-3 text-gray-600">{formatCurrency(inv.waterCost)}</td>
+                    <td className="px-4 py-3 font-semibold text-gray-900">{formatCurrency(inv.totalAmount)}</td>
                     <td className="px-4 py-3">
-                      <span className={cn('flex items-center gap-1.5 text-xs font-medium px-2 py-1 rounded-full w-fit', cfg.bg, cfg.color)}>
-                        <Icon size={12} /> {cfg.label}
+                      <span className={cfg.badge}>
+                        <Icon size={11} /> {cfg.label}
                       </span>
                     </td>
                     <td className="px-4 py-3">
@@ -103,7 +110,7 @@ export default function PaymentsPage() {
                         <button
                           onClick={() => markPaidMutation.mutate(inv.id)}
                           disabled={markPaidMutation.isPending}
-                          className="text-xs bg-primary text-primary-foreground px-3 py-1 rounded-md hover:opacity-90 disabled:opacity-50"
+                          className="btn-primary py-1 px-3 text-xs"
                         >
                           Đánh dấu đã thu
                         </button>

@@ -61,13 +61,16 @@ Luôn include:
 
 | File | Vai trò |
 |---|---|
-| `backend/src/app.ts` | Đăng ký tất cả routes |
+| `backend/src/app.ts` | Đăng ký tất cả routes (import `./config/mongoose` đầu tiên) |
+| `backend/src/config/mongoose.ts` | Plugin toàn cục serialize `_id`→`id`, strip `__v`/`password` |
 | `backend/src/middleware/auth.middleware.ts` | JWT guard, role check |
 | `backend/src/models/UtilityReading.model.ts` | Business logic tính điện/nước |
+| `backend/src/seed.ts` | Seed dữ liệu demo (`npm run seed`) |
 | `frontend_web/src/types/index.ts` | Data shapes dùng chung cho web |
 | `frontend_web/src/lib/api.ts` | Axios instance + JWT refresh |
 | `frontend_web/src/stores/auth.store.ts` | Auth state (Zustand) |
 | `frontend_web/src/App.tsx` | Route definitions + ProtectedRoute |
+| `frontend_web/src/pages/ContractsPage.tsx` | Quản lý hợp đồng (gắn khách vào phòng) |
 | `frontend_app/lib/services/api_service.dart` | Dio instance + token refresh |
 | `frontend_app/lib/providers/auth_provider.dart` | Auth state (Riverpod) |
 | `frontend_app/lib/router/app_router.dart` | GoRouter + redirect logic |
