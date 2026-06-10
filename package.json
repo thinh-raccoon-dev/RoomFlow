@@ -1,0 +1,27 @@
+{
+  "name": "roomflow",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "npm@10.9.2",
+  "workspaces": [
+    "backend",
+    "frontend_web"
+  ],
+  "scripts": {
+    "dev": "concurrently -n backend,web -c blue,green \"npm:dev:backend\" \"npm:dev:web\"",
+    "dev:backend": "npm run dev --workspace @roomflow/backend",
+    "dev:web": "npm run dev --workspace @roomflow/web",
+    "seed": "npm run seed --workspace @roomflow/backend",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3",
+    "turbo": "^2.0.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
