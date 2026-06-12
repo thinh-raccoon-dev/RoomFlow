@@ -18,6 +18,7 @@ RoomFlow/
 ├── backend/        Node.js + Express + TypeScript + Mongoose (API)
 ├── frontend_web/   React 18 + Vite + TypeScript + Tailwind CSS (dashboard bà chủ)
 ├── frontend_app/   Flutter + Dart (app sinh viên)
+├── docs/           Landing Page tĩnh (HTML, JS, CSS)
 ├── turbo.json
 └── package.json    (npm workspaces: backend + frontend_web)
 ```
@@ -72,6 +73,9 @@ npm run dev:backend     # hoặc: cd backend && npm run dev
 
 # Chỉ web
 npm run dev:web         # hoặc: cd frontend_web && npm run dev
+
+# Chỉ chạy Landing Page
+npm run dev:landing     # Chạy máy chủ tĩnh tại cổng 8080 cho landing page
 
 # Nạp dữ liệu demo (xoá sạch DB rồi nạp tài khoản + dữ liệu mẫu)
 npm run seed            # alias của: npm run seed --workspace @roomflow/backend

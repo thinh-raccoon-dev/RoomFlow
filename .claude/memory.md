@@ -91,6 +91,9 @@ Lưu ý: seed dùng `.create()` để kích hoạt pre-save hook (hash password,
 
 ## Đã hoàn thành gần đây
 
+- [x] Tạo Landing Page tĩnh tại thư mục `docs/` (gồm `index.html`, `app.js`, `style.css` và assets ảnh) tích hợp máy tính điện nước tự động và popup hóa đơn demo.
+- [x] Thêm script `dev:landing` để khởi chạy máy chủ tĩnh cho landing page tại cổng 8080.
+- [x] Đồng bộ và chốt tông màu chính của dự án (Blue 500, Green 500, Amber 500, Red 500, Gray 50).
 - [x] Trang quản lý hợp đồng trên web — `frontend_web/src/pages/ContractsPage.tsx` (route `/contracts`, nav trong Sidebar): danh sách, tạo hợp đồng (chọn phòng trống + khách thuê → phòng tự "occupied"), kết thúc hợp đồng (→ phòng "vacant")
 - [x] Serialize `_id`→`id` toàn cục (xem mục Quyết định #6)
 - [x] Seed script dữ liệu demo (`npm run seed`)

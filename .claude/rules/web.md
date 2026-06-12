@@ -23,7 +23,12 @@
 ## Styles
 
 - Tailwind utility classes, KHÔNG viết custom CSS ngoại trừ `index.css`
-- Color scheme: primary blue (`blue-600`), success green (`green-600`), danger red (`red-600`)
+- Tông màu chính của dự án:
+  - Header/Navigation & Buttons (Primary): Blue 500 (`#3B82F6`)
+  - Success/Occupied: Green 500 (`#10B981`)
+  - Warning/Pending: Amber 500 (`#F59E0B`)
+  - Error/Overdue: Red 500 (`#EF4444`)
+  - Background: Gray 50 (`#F9FAFB`)
 - Tiền tệ hiển thị: `toLocaleString('vi-VN') + ' ₫'` hoặc dùng `Intl.NumberFormat`
 
 ## API calls
