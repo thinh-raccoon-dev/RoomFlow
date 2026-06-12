@@ -11,6 +11,7 @@
     "dev": "concurrently -n backend,web -c blue,green \"npm:dev:backend\" \"npm:dev:web\"",
     "dev:backend": "npm run dev --workspace @roomflow/backend",
     "dev:web": "npm run dev --workspace @roomflow/web",
+    "dev:landing": "npx -y http-server docs -p 8080",
     "seed": "npm run seed --workspace @roomflow/backend",
     "build": "turbo run build",
     "lint": "turbo run lint",

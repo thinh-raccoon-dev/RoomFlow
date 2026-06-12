@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoomFlow — Hệ thống quản lý khu trọ thông minh</title>
+    <meta name="description" content="RoomFlow giúp các chủ nhà trọ quản lý phòng, hợp đồng, tự động tính tiền điện nước và tương tác hiệu quả với người thuê trọ qua ứng dụng web & di động.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Custom JS -->
+    <script src="app.js" defer></script>
+</head>
+<body>
+
+    <!-- Header / Navigation -->
+    <header class="main-header" id="header">
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <i data-lucide="home"></i>
+                </div>
+                <span>RoomFlow</span>
+            </a>
+            
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#hero" class="nav-link active">Trang chủ</a></li>
+                    <li><a href="#features" class="nav-link">Tính năng</a></li>
+                    <li><a href="#calculator" class="nav-link">Tính điện nước</a></li>
+                    <li><a href="#workflow" class="nav-link">Quy trình</a></li>
+                    <li><a href="#download" class="nav-link">Tải ứng dụng</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <a href="http://localhost:5173/login" target="_blank" class="btn btn-secondary show-desktop">Đăng nhập</a>
+                <a href="http://localhost:5173/register" target="_blank" class="btn btn-primary show-desktop">Dùng thử miễn phí</a>
+                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Menu">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <nav class="mobile-nav" id="mobile-nav">
+        <ul>
+            <li><a href="#hero" class="mobile-link">Trang chủ</a></li>
+            <li><a href="#features" class="mobile-link">Tính năng</a></li>
+            <li><a href="#calculator" class="mobile-link">Tính điện nước</a></li>
+            <li><a href="#workflow" class="mobile-link">Quy trình</a></li>
+            <li><a href="#download" class="mobile-link">Tải ứng dụng</a></li>
+            <li><hr style="border: 0; border-top: 1px solid #E5E7EB; margin: 8px 0;"></li>
+            <li><a href="http://localhost:5173/login" target="_blank" class="btn btn-secondary btn-block">Đăng nhập</a></li>
+            <li><a href="http://localhost:5173/register" target="_blank" class="btn btn-primary btn-block">Dùng thử miễn phí</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+        <div class="hero-background-decor">
+            <div class="glow-orb orb-1"></div>
+            <div class="glow-orb orb-2"></div>
+        </div>
+        
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="badge-new">
+                    <span class="badge-dot"></span>
+                    <span class="badge-text">Giải pháp quản lý phòng trọ thế hệ mới</span>
+                </div>
+                <h1 class="hero-title">Quản lý khu trọ <br><span class="gradient-text">Dễ dàng & Tự động</span></h1>
+                <p class="hero-description">
+                    Giải phóng bản thân khỏi sổ sách và những bảng tính tay phức tạp. RoomFlow giúp chủ nhà trọ quản lý hàng chục phòng, tự động tính toán điện nước và gửi hóa đơn trực tiếp đến điện thoại người thuê chỉ trong vài click.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#calculator" class="btn btn-primary btn-lg">Trải nghiệm tính tiền</a>
+                    <a href="http://localhost:5173/register" target="_blank" class="btn btn-secondary btn-lg">Bắt đầu ngay</a>
+                </div>
+                <div class="hero-trust">
+                    <div class="trust-avatars">
+                        <div class="avatar">T</div>
+                        <div class="avatar">H</div>
+                        <div class="avatar">V</div>
+                        <div class="avatar">A</div>
+                    </div>
+                    <span class="trust-text">Được tin dùng bởi hơn 200+ chủ trọ và 5,000+ sinh viên trên toàn quốc.</span>
+                </div>
+            </div>
+            
+            <div class="hero-mockups">
+                <div class="mockup-wrapper">
+                    <!-- Web Frame Mockup -->
+                    <div class="web-mockup">
+                        <div class="web-mockup-header">
+                            <span class="dot red"></span>
+                            <span class="dot yellow"></span>
+                            <span class="dot green"></span>
+                            <span class="web-mockup-title">https://dashboard.roomflow.vn</span>
+                        </div>
+                        <img src="assets/dashboard_mockup.png" alt="RoomFlow Web Dashboard" class="mockup-img">
+                    </div>
+                    
+                    <!-- Phone Frame Mockup -->
+                    <div class="phone-mockup">
+                        <div class="phone-mockup-speaker"></div>
+                        <img src="assets/mobile_mockup.png" alt="RoomFlow Tenant Mobile App" class="mockup-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">2 - 3h</div>
+                <div class="stat-label">Thời gian tiết kiệm mỗi ngày</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Hóa đơn tính toán chính xác</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Phòng quản lý trung bình mỗi chủ trọ</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Báo cáo sự cố và cập nhật từ người thuê</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Hai ứng dụng chuyên biệt, một giải pháp đồng bộ</h2>
+                <p class="section-subtitle">RoomFlow mang lại trải nghiệm tối ưu cho cả người quản lý khu trọ và người thuê trọ.</p>
+            </div>
+            
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="landlord">
+                        <i data-lucide="shield-check"></i> Dành cho Chủ nhà trọ
+                    </button>
+                    <button class="tab-btn" data-tab="tenant">
+                        <i data-lucide="user"></i> Dành cho Người thuê trọ
+                    </button>
+                </div>
+                
+                <!-- Landlord Features -->
+                <div class="tab-content active" id="tab-landlord">
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon" style="background-color: #EFF6FF; color: #3B82F6;">
+                                <i data-lucide="layout-dashboard"></i>
+                            </div>
+                            <h3 class="feature-card-title">Dashboard trực quan</h3>
+                            <p class="feature-card-desc">
+                                Xem nhanh tỷ lệ lấp đầy phòng, doanh thu thực tế, hóa đơn còn nợ và các khoản quá hạn theo thời gian thực.
+                            </p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon" style="background-color: #ECFDF5; color: #10B981;">
+                                <i data-lucide="users"></i>
+                            </div>
+                            <h3 class="feature-card-title">Quản lý khách thuê & hợp đồng</h3>
+                            <p class="feature-card-desc">
+                                Tạo hợp đồng số, kết nối tài khoản người thuê trọ vào phòng. Tự động chuyển đổi trạng thái phòng trống/đã thuê.
+                            </p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon" style="background-color: #FEF3C7; color: #F59E0B;">
+                                <i data-lucide="calculator"></i>
+                            </div>
+                            <h3 class="feature-card-title">Tính điện nước tự động</h3>
+                            <p class="feature-card-desc">
+                                Nhập chỉ số đồng hồ mới nhất. Hệ thống tự động đối chiếu số cũ, áp dụng giá cài đặt sẵn và tính tiền chi tiết.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tenant Features -->
+                <div class="tab-content" id="tab-tenant">
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon" style="background-color: #EFF6FF; color: #3B82F6;">
+                                <i data-lucide="file-text"></i>
+                            </div>
+                            <h3 class="feature-card-title">Hóa đơn minh bạch</h3>
+                            <p class="feature-card-desc">
+                                Nhận thông báo hóa đơn chi tiết ngay khi chủ phòng duyệt. Xem rõ ràng lượng điện nước tiêu thụ trong tháng.
+                            </p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon" style="background-color: #ECFDF5; color: #10B981;">
+                                <i data-lucide="wrench"></i>
+                            </div>
+                            <h3 class="feature-card-title">Báo cáo hỏng hóc (Báo hỏng)</h3>
+                            <p class="feature-card-desc">
+                                Gửi yêu cầu sửa chữa thiết bị hư hỏng kèm hình ảnh trực quan. Theo dõi tiến độ sửa chữa của chủ trọ tiện lợi.
+                            </p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon" style="background-color: #FEF2F2; color: #EF4444;">
+                                <i data-lucide="history"></i>
+                            </div>
+                            <h3 class="feature-card-title">Lịch sử thanh toán</h3>
+                            <p class="feature-card-desc">
+                                Lưu giữ lịch sử các hóa đơn đã thanh toán để đối soát bất cứ lúc nào, không lo thất lạc biên lai giấy tờ.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section" id="calculator">
+        <div class="hero-background-decor">
+            <div class="glow-orb" style="width: 500px; height: 500px; background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 80%); top: 10%; left: 30%;"></div>
+        </div>
+        
+        <div class="container calculator-container">
+            <div class="calculator-info">
+                <div class="badge-new" style="background-color: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.2);">
+                    <span class="badge-text" style="color: #60A5FA;">Bản dùng thử tính năng</span>
+                </div>
+                <h2 class="section-title" style="color: white; margin-bottom: 24px; text-align: left;">Công cụ tính tiền điện nước trực quan</h2>
+                <p class="calculator-desc">
+                    Hãy trải nghiệm cách RoomFlow tự động hóa việc tính toán. Nhập chỉ số điện và nước tiêu thụ dưới đây, hệ thống sẽ tính tiền ngay lập tức dựa trên đơn giá chuẩn. Sau đó, nhấn nút <strong>"Tạo hóa đơn mẫu"</strong> để xem bản xem trước hóa đơn gửi cho sinh viên!
+                </p>
+                <div class="price-rules">
+                    <div class="price-rule-item">
+                        <div class="price-icon" style="background-color: #2563EB;">
+                            <i data-lucide="zap"></i>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: white;">Đơn giá Điện</div>
+                            <div style="font-size: 0.85rem; color: #94A3B8;">3.500 ₫ / kWh</div>
+                        </div>
+                    </div>
+                    
+                    <div class="price-rule-item">
+                        <div class="price-icon" style="background-color: #059669;">
+                            <i data-lucide="droplet"></i>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; color: white;">Đơn giá Nước</div>
+                            <div style="font-size: 0.85rem; color: #94A3B8;">15.000 ₫ / m³</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="calculator-widget">
+                <h3 class="widget-title">
+                    <i data-lucide="calculator" style="color: #3B82F6;"></i> Máy tính hóa đơn trọ
+                </h3>
+                
+                <div class="form-group">
+                    <label for="room-rent">Tiền phòng mỗi tháng (₫)</label>
+                    <input type="number" id="room-rent" value="3000000" min="0" step="50000">
+                </div>
+                
+                <div class="form-group-row">
+                    <div class="form-group-box">
+                        <div class="form-box-title" style="color: #3B82F6;">
+                            <i data-lucide="zap" style="width: 16px;"></i> Điện (kWh)
+                        </div>
+                        <div class="form-group">
+                            <label for="elec-prev">Chỉ số cũ</label>
+                            <input type="number" id="elec-prev" value="1200" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="elec-curr">Chỉ số mới</label>
+                            <input type="number" id="elec-curr" value="1350" min="0">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group-box">
+                        <div class="form-box-title" style="color: #10B981;">
+                            <i data-lucide="droplet" style="width: 16px;"></i> Nước (m³)
+                        </div>
+                        <div class="form-group">
+                            <label for="water-prev">Chỉ số cũ</label>
+                            <input type="number" id="water-prev" value="45" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="water-curr">Chỉ số mới</label>
+                            <input type="number" id="water-curr" value="52" min="0">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="calculator-results">
+                    <div class="result-row">
+                        <span>Số điện tiêu thụ:</span>
+                        <span><strong id="elec-diff">0</strong> kWh</span>
+                    </div>
+                    <div class="result-row">
+                        <span>Thành tiền điện:</span>
+                        <span id="elec-cost">0 ₫</span>
+                    </div>
+                    <hr style="border: 0; border-top: 1px dashed rgba(59, 130, 246, 0.2); margin: 6px 0;">
+                    <div class="result-row">
+                        <span>Số nước tiêu thụ:</span>
+                        <span><strong id="water-diff">0</strong> m³</span>
+                    </div>
+                    <div class="result-row">
+                        <span>Thành tiền nước:</span>
+                        <span id="water-cost">0 ₫</span>
+                    </div>
+                    <hr style="border: 0; border-top: 1px dashed rgba(59, 130, 246, 0.2); margin: 6px 0;">
+                    <div class="result-row">
+                        <span>Tiền thuê phòng:</span>
+                        <span id="rent-cost">0 ₫</span>
+                    </div>
+                    
+                    <div class="result-total">
+                        <span>Tổng tiền hóa đơn:</span>
+                        <span class="total-amount" id="total-amount">0 ₫</span>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary btn-block btn-lg" id="btn-generate-demo">
+                    <i data-lucide="file-plus"></i> Tạo hóa đơn mẫu
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Section -->
+    <section class="workflow-section" id="workflow">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Khởi động nhanh trong 4 bước đơn giản</h2>
+                <p class="section-subtitle">Chỉ mất chưa đầy 10 phút để thiết lập và đưa toàn bộ khu trọ của bạn vào quy trình tự động hóa.</p>
+            </div>
+            
+            <div class="workflow-steps">
+                <div class="step-card">
+                    <div class="step-number-badge">1</div>
+                    <h3 class="step-title">Tạo tài khoản & Khu trọ</h3>
+                    <p class="step-desc">Đăng ký tài khoản bà chủ trọ, thêm thông tin các khu trọ và giá điện nước mặc định cho từng khu.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number-badge">2</div>
+                    <h3 class="step-title">Nhập phòng & Tạo hợp đồng</h3>
+                    <p class="step-desc">Thêm danh sách phòng trọ, tạo tài khoản người thuê và tạo hợp đồng liên kết sinh viên vào phòng trọ.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number-badge">3</div>
+                    <h3 class="step-title">Ghi chỉ số & Tạo hóa đơn</h3>
+                    <p class="step-desc">Nhập số điện nước vào cuối tháng, RoomFlow tự động tạo hóa đơn và gửi thông báo trực tiếp đến điện thoại người thuê.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number-badge">4</div>
+                    <h3 class="step-title">Thu tiền & Báo cáo</h3>
+                    <p class="step-desc">Khách thuê xem hóa đơn và chuyển khoản. Bà chủ duyệt thanh toán và xem báo cáo tài chính ngay trên Dashboard.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download App Section -->
+    <section class="download-section" id="download">
+        <div class="container">
+            <div class="download-card">
+                <div class="download-content">
+                    <h2 class="download-title">Tải ứng dụng dành cho Sinh viên trọ</h2>
+                    <p class="download-desc">
+                        Bạn là sinh viên đang thuê trọ tại cơ sở sử dụng RoomFlow? Hãy tải ngay app RoomFlow trên di động để nhận hóa đơn nhanh chóng, theo dõi lịch sử thanh toán và gửi phản ánh hỏng hóc mọi lúc mọi nơi.
+                    </p>
+                    <div class="download-buttons">
+                        <a href="#" class="btn btn-white">
+                            <i data-lucide="play"></i> Google Play
+                        </a>
+                        <a href="#" class="btn btn-outline-white">
+                            <i data-lucide="apple"></i> App Store
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="download-qr">
+                    <div class="qr-box">
+                        <!-- Simulate QR Code with simple vector representation -->
+                        <svg class="qr-svg" viewBox="0 0 100 100" class="qr-svg">
+                            <path d="M5 5h30v30H5V5zm3 3h24v24H8V8zM65 5h30v30H65V5zm3 3h24v24H68V8zM5 65h30v30H5V65zm3 3h24v24H8V68z" fill="#0F172A"/>
+                            <path d="M12 12h16v16H12V12zM72 12h16v16H72V12zM12 72h16v16H12V72z" fill="#3B82F6"/>
+                            <!-- QR Dots -->
+                            <path d="M45 5h5v5h-5V5zm10 0h5v5h-5V5zm-5 10h5v5h-5v-5zm10 0h5v5h-5v-5zm-15 10h5v5h-5v-5zm5 0h5v5h-5v-5zm10 5h5v5h-5v-5zm5 0h5v5h-5v-5zm-15 10h5v5h-5v-5zm5 5h5v5h-5v-5zm15-5h5v5h-5v-5zm5 5h5v5h-5v-5zm-15 10h5v5h-5v-5zm5 0h5v5h-5v-5zm15-5h5v5h-5v-5zm5 5h5v5h-5v-5zm-25 10h5v5h-5v-5zm10 0h5v5h-5v-5zm5 0h5v5h-5v-5zm5 0h5v5h-5v-5zm-10 10h5v5h-5v-5zm10 0h5v5h-5v-5z" fill="#0F172A"/>
+                        </svg>
+                        <div class="qr-text">Quét để tải ứng dụng</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <div class="footer-info">
+                <a href="#" class="logo" style="color: white; margin-bottom: 20px;">
+                    <div class="logo-icon" style="background-color: rgba(59, 130, 246, 0.1); color: #3B82F6;">
+                        <i data-lucide="home"></i>
+                    </div>
+                    <span>RoomFlow</span>
+                </a>
+                <p class="footer-desc">
+                    Giải pháp công nghệ quản lý nhà trọ, tối ưu hóa quy trình thu phí và vận hành khu trọ quy mô vừa và lớn. Tiết kiệm thời gian, tăng cường minh bạch.
+                </p>
+            </div>
+            
+            <div class="footer-links-group">
+                <div class="footer-column">
+                    <h4 class="footer-col-title">Liên kết nhanh</h4>
+                    <ul>
+                        <li><a href="#hero">Trang chủ</a></li>
+                        <li><a href="#features">Tính năng chính</a></li>
+                        <li><a href="#calculator">Tính tiền điện nước</a></li>
+                        <li><a href="#workflow">Quy trình 4 bước</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h4 class="footer-col-title">Thông tin liên hệ</h4>
+                    <ul>
+                        <li class="footer-contact-item">
+                            <i data-lucide="mail"></i> support@roomflow.vn
+                        </li>
+                        <li class="footer-contact-item">
+                            <i data-lucide="phone"></i> +84 987 654 321
+                        </li>
+                        <li class="footer-contact-item">
+                            <i data-lucide="map-pin"></i> Khu Công nghệ cao, Q. 9, TP. HCM
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="container footer-bottom-container">
+                <p>&copy; 2026 RoomFlow. Tất cả các quyền được bảo lưu.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Điều khoản sử dụng</a>
+                    <a href="#">Chính sách bảo mật</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Invoice Demo Modal Overlay & Card -->
+    <div class="modal-overlay" id="invoice-modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i data-lucide="receipt" style="color: #3B82F6;"></i> Xem trước hóa đơn gửi đi
+                </h3>
+                <button class="modal-close" id="modal-close-btn">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="invoice-demo-brand">
+                    <h4>HÓA ĐƠN TRỌ ROOMFLOW</h4>
+                    <span class="badge bg-warning-light text-warning" id="modal-invoice-status">Chờ thanh toán</span>
+                </div>
+                
+                <div class="invoice-meta-info">
+                    <div>
+                        <span class="label">Khu trọ:</span>
+                        <span class="value">Khu trọ Demo (Phòng 101)</span>
+                    </div>
+                    <div>
+                        <span class="label">Tháng thanh toán:</span>
+                        <span class="value" id="invoice-date-val">06/2026</span>
+                    </div>
+                    <div>
+                        <span class="label">Khách thuê:</span>
+                        <span class="value">Nguyễn Văn An</span>
+                    </div>
+                </div>
+                
+                <div class="invoice-table">
+                    <div class="table-header">
+                        <span>Khoản mục</span>
+                        <span>Số tiền</span>
+                    </div>
+                    
+                    <!-- Rent Row -->
+                    <div class="table-row">
+                        <div>
+                            <span class="item-name">Tiền thuê phòng</span>
+                            <span class="item-sub">Tháng hiện tại</span>
+                        </div>
+                        <span class="item-val" id="modal-rent-cost">0 ₫</span>
+                    </div>
+                    
+                    <!-- Electricity Row -->
+                    <div class="table-row">
+                        <div>
+                            <span class="item-name">Tiền điện tiêu thụ</span>
+                            <span class="item-sub" id="modal-elec-details">0 kWh x 3.500₫</span>
+                        </div>
+                        <span class="item-val" id="modal-elec-cost">0 ₫</span>
+                    </div>
+                    
+                    <!-- Water Row -->
+                    <div class="table-row">
+                        <div>
+                            <span class="item-name">Tiền nước tiêu thụ</span>
+                            <span class="item-sub" id="modal-water-details">0 m³ x 15.000₫</span>
+                        </div>
+                        <span class="item-val" id="modal-water-cost">0 ₫</span>
+                    </div>
+                    
+                    <!-- Total Row -->
+                    <div class="table-total">
+                        <span>Tổng cộng</span>
+                        <span class="total-val" id="modal-total-cost">0 ₫</span>
+                    </div>
+                </div>
+                
+                <div class="modal-notice">
+                    <i data-lucide="info"></i>
+                    <div>Đây là hóa đơn mô phỏng. Bấm nút <strong>"Đánh dấu đã thu"</strong> dưới đây để mô phỏng thao tác cập nhật thanh toán của bà chủ trọ.</div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="modal-cancel-btn">Đóng</button>
+                <button class="btn btn-primary" id="modal-success-btn">
+                    <i data-lucide="check"></i> Đánh dấu đã thu
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
